@@ -67,26 +67,7 @@ public class QueryUtils {
 
     }
 
-    public static void deleteAllUsers(){
 
-        Call<ResponseBody> call = RetrofitClient.getInstance()
-                .getAPIClient()
-                .deleteAllUsers();
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.v(LOG_TAG, "Deleted all users");
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                call.cancel();
-                Log.d(LOG_TAG, "Call failed :" + t.getMessage());
-            }
-        });
-
-    }
 
     public static void deleteUserByID(UUID uuid){
 

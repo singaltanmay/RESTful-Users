@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-
 import com.example.restfulusers.API.QueryUtils;
 
 import java.util.UUID;
@@ -15,15 +14,20 @@ import java.util.UUID;
 public class UserDetailsActivity extends AppCompatActivity {
 
     private UUID uuid;
+    public static String KEY_INTENT_UUID = "3289gh";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
 
-        uuid = UUID.fromString(getIntent().getStringExtra("user_uuid"));
+        try {
+            uuid = UUID.fromString(getIntent().getStringExtra(KEY_INTENT_UUID));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        User user = new User(UUID.randomUUID(), "fname", "lname", "238945221");
+        User user = new User(uuid == null ? UUID.randomUUID() : uuid, "fname", "lname", "238945221");
 
         ((TextView) findViewById(R.id.user_details_user_first_name)).setText(user.getFirstName());
         ((TextView) findViewById(R.id.user_details_user_last_name)).setText(user.getLastName());
@@ -42,12 +46,9 @@ public class UserDetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_all_users && uuid != null) {
             QueryUtils.deleteUserByID(uuid);
             return true;

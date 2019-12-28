@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.restfulusers.API.QueryUtils;
 import com.example.restfulusers.API.RetrofitClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -17,13 +16,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,19 +46,27 @@ public class MainActivity extends AppCompatActivity {
         mListView = findViewById(R.id.users_list);
         mAdapter = new ListAdapter(this, R.layout.list_item, new ArrayList<>());
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(
+                (AdapterView<?> parent, View view, int position, long id) -> {
+                    Intent intent = new Intent(MainActivity.this, UserDetailsActivity.class);
+                    intent.putExtra(UserDetailsActivity.KEY_INTENT_UUID, mAdapter.getUUIDAtIndex(position).toString());
+                    startActivity(intent);
+                }
+        );
 
         loadAllUsers();
 
         FloatingActionButton fab = findViewById(R.id.user_add_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, UserDetailsActivity.class));
-            }
-        });
+        fab.setOnClickListener((View view) -> startActivity(new Intent(MainActivity.this, UserDetailsActivity.class)));
     }
 
-    void loadAllUsers() {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadAllUsers();
+    }
+
+    private void loadAllUsers() {
 
         Call<List<User>> call = RetrofitClient.getInstance()
                 .getAPIClient()
@@ -69,11 +79,33 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.setData(users);
                 mAdapter.notifyDataSetChanged();
 
-                Log.v(LOG_TAG,"Call successful. Items received: " + users.size());
+                Log.v(LOG_TAG, "Call successful. Items received: " + users.size());
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
+                call.cancel();
+                Log.d(LOG_TAG, "Call failed :" + t.getMessage());
+            }
+        });
+
+    }
+
+    private void deleteAllUsers() {
+
+        Call<ResponseBody> call = RetrofitClient.getInstance()
+                .getAPIClient()
+                .deleteAllUsers();
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                loadAllUsers();
+                Log.v(LOG_TAG, "Deleted all users");
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 call.cancel();
                 Log.d(LOG_TAG, "Call failed :" + t.getMessage());
             }
@@ -97,47 +129,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_all_users) {
-            QueryUtils.deleteAllUsers();
+            deleteAllUsers();
+            return true;
+        } else if (id == R.id.action_refresh_users_list) {
+            loadAllUsers();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-/*
-
-    @NonNull
-    @Override
-    public Loader<List<User>> onCreateLoader(int id, @Nullable Bundle args) {
-        return new AsyncTaskLoader<List<User>>(this) {
-            @Override
-            protected void onStartLoading() {
-                forceLoad();
-            }
-
-            @Nullable
-            @Override
-            public List<User> loadInBackground() {
-                return QueryUtils.getAllUsers();
-            }
-        };
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<List<User>> loader, List<User> data) {
-        if (data != null) {
-            Log.v(LOG_TAG, "No of users received" + data.size());
-            mAdapter.data = data;
-            mAdapter.clear();
-            mAdapter.addAll(data);
-        }else Log.e(LOG_TAG, "Null list received");
-    }
-
-    @Override
-    public void onLoaderReset(@NonNull Loader<List<User>> loader) {
-        mAdapter.data = new ArrayList<>();
-        mAdapter.clear();
-    }
-*/
 
     private class ListAdapter extends ArrayAdapter<User> {
 
@@ -152,6 +152,10 @@ public class MainActivity extends AppCompatActivity {
 
         public void setData(List<User> data) {
             this.data = data;
+        }
+
+        public UUID getUUIDAtIndex(int position) {
+            return this.data.get(position).getUUID();
         }
 
         @Override
