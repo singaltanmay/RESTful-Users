@@ -2,14 +2,17 @@ package com.example.restfulusers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.restfulusers.API.QueryUtils;
 import com.example.restfulusers.API.RetrofitClient;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.UUID;
 
@@ -40,6 +43,13 @@ public class UserDetailsActivity extends AppCompatActivity {
             } else getUserByID();
         }
 
+
+        FloatingActionButton floatingActionButton = findViewById(R.id.user_edit_fab);
+        floatingActionButton.setOnClickListener((View view) ->{
+            AnimatedVectorDrawable drawable = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.ic_edit_to_done_anim);
+            ((FloatingActionButton) view).setImageDrawable(drawable);
+            drawable.start();
+        });
 
     }
 

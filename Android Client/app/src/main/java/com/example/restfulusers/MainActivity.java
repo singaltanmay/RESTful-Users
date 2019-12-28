@@ -1,9 +1,13 @@
 package com.example.restfulusers;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.restfulusers.API.QueryUtils;
 import com.example.restfulusers.API.RetrofitClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,6 +26,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -85,6 +92,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+//                builder.setMessage("Could not connect to server. Try again?")
+//                        .setTitle("Connection Failed")
+//                        .setPositiveButton(android.R.string.ok, (DialogInterface d, int id) -> {
+//                            loadAllUsers();
+//                        })
+//                        .setNegativeButton(android.R.string.no, (DialogInterface d, int id) -> {
+//                            d.dismiss();
+//                        });
+//                builder.create();
+
                 call.cancel();
                 Log.d(LOG_TAG, "Call failed :" + t.getMessage());
             }
