@@ -20,31 +20,6 @@ public class QueryUtils {
 
     private static User user;
 
-    public static User getUserByID(UUID uuid) {
-
-        Call<User> call = RetrofitClient.getInstance()
-                .getAPIClient()
-                .getUserByID(uuid);
-
-        call.enqueue(new Callback<User>() {
-                         @Override
-                         public void onResponse(Call<User> call, Response<User> response) {
-                             user = response.body();
-                         }
-
-                         @Override
-                         public void onFailure(Call<User> call, Throwable t) {
-                             call.cancel();
-                             Log.d(LOG_TAG, "Call failed :" + call.toString());
-                         }
-                     }
-
-        );
-
-        return user;
-
-    }
-
     public static void insertUser(User user) {
         Call<ResponseBody> call = RetrofitClient.getInstance()
                 .getAPIClient()

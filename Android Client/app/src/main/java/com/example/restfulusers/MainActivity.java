@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,17 +123,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_delete_all_users) {
             deleteAllUsers();
+            Toast.makeText(this, "Deleted All", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_refresh_users_list) {
             loadAllUsers();
+            Toast.makeText(this, "Reloaded", Toast.LENGTH_SHORT).show();
             return true;
         }
 

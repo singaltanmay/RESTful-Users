@@ -3,21 +3,29 @@ package com.example.restfulusers;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.restfulusers.API.QueryUtils;
+import com.example.restfulusers.API.RetrofitClient;
 
 import java.util.UUID;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
     private UUID uuid;
     public static String KEY_INTENT_UUID = "3289gh";
+    private static String LOG_TAG = UserDetailsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
 
@@ -25,14 +33,46 @@ public class UserDetailsActivity extends AppCompatActivity {
             uuid = UUID.fromString(getIntent().getStringExtra(KEY_INTENT_UUID));
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (uuid == null) {
+                uuid = UUID.randomUUID();
+                setupUserInfo(new User(uuid, "John", "Doe", "13491780"));
+            } else getUserByID();
         }
 
-        User user = new User(uuid == null ? UUID.randomUUID() : uuid, "fname", "lname", "238945221");
 
+    }
+
+    private void setupUserInfo(User user) {
         ((TextView) findViewById(R.id.user_details_user_first_name)).setText(user.getFirstName());
         ((TextView) findViewById(R.id.user_details_user_last_name)).setText(user.getLastName());
         ((TextView) findViewById(R.id.user_details_user_phone)).setText(user.getPhoneNumber());
-        ((TextView) findViewById(R.id.user_details_user_uuid)).setText(user.getUUID().toString());
+        ( (TextView) findViewById(R.id.user_details_user_uuid)).setText(user.getUUID().toString());
+    }
+
+    private void getUserByID() {
+
+        Call<User> call = RetrofitClient.getInstance()
+                .getAPIClient()
+                .getUserByID(uuid);
+
+        call.enqueue(new Callback<User>() {
+                         @Override
+                         public void onResponse(Call<User> call, Response<User> response) {
+                             User body = response.body();
+                             if (body != null) {
+                                 setupUserInfo(body);
+                             }
+                         }
+
+                         @Override
+                         public void onFailure(Call<User> call, Throwable t) {
+                             call.cancel();
+                             Log.d(LOG_TAG, "Call failed :" + call.toString());
+                         }
+                     }
+
+        );
 
     }
 
