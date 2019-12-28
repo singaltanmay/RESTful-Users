@@ -1,18 +1,12 @@
 package com.example.restfulusers;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.UUID;
 
 public class User {
 
-    @SerializedName("id")
     private UUID uuid;
-    @SerializedName("f_name")
     private String firstName;
-    @SerializedName("l_name")
     private String lastName;
-    @SerializedName("ph_num")
     private String phoneNumber;
 
     public User(UUID uuid,

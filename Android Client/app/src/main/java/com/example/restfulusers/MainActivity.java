@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.restfulusers.API.QueryUtils;
+import com.example.restfulusers.API.RetrofitClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.loader.content.Loader;
 
 import android.util.Log;
 import android.view.View;
@@ -26,11 +24,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<User>> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    private ListAdapter adapter;
+    ListView mListView;
+    private ListAdapter mAdapter;
 
 
     @Override
@@ -38,11 +41,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView user_list = findViewById(R.id.users_list);
-        adapter = new ListAdapter(this, R.layout.list_item,new ArrayList<>());
-        user_list.setAdapter(adapter);
+        mListView = findViewById(R.id.users_list);
+        mAdapter = new ListAdapter(this, R.layout.list_item, new ArrayList<>());
+        mListView.setAdapter(mAdapter);
 
-        getSupportLoaderManager().initLoader(2891, null, this);
+        loadAllUsers();
 
         FloatingActionButton fab = findViewById(R.id.user_add_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +54,31 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(new Intent(MainActivity.this, UserDetailsActivity.class));
             }
         });
+    }
+
+    void loadAllUsers() {
+
+        Call<List<User>> call = RetrofitClient.getInstance()
+                .getAPIClient()
+                .getAllUsers();
+
+        call.enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                List<User> users = response.body();
+                mAdapter.setData(users);
+                mAdapter.notifyDataSetChanged();
+
+                Log.v(LOG_TAG,"Call successful. Items received: " + users.size());
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                call.cancel();
+                Log.d(LOG_TAG, "Call failed :" + t.getMessage());
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         return super.onOptionsItemSelected(item);
     }
+/*
 
     @NonNull
     @Override
@@ -97,27 +126,37 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(@NonNull Loader<List<User>> loader, List<User> data) {
         if (data != null) {
             Log.v(LOG_TAG, "No of users received" + data.size());
-            adapter.data = data;
-            adapter.clear();
-            adapter.addAll(data);
+            mAdapter.data = data;
+            mAdapter.clear();
+            mAdapter.addAll(data);
         }else Log.e(LOG_TAG, "Null list received");
     }
 
     @Override
     public void onLoaderReset(@NonNull Loader<List<User>> loader) {
-        adapter.data = new ArrayList<>();
-        adapter.clear();
+        mAdapter.data = new ArrayList<>();
+        mAdapter.clear();
     }
+*/
 
     private class ListAdapter extends ArrayAdapter<User> {
 
-        List<User> data;
+        private List<User> data;
         int resource;
 
         public ListAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
             super(context, resource, objects);
             this.data = objects;
             this.resource = resource;
+        }
+
+        public void setData(List<User> data) {
+            this.data = data;
+        }
+
+        @Override
+        public int getCount() {
+            return this.data.size();
         }
 
         @NonNull

@@ -20,34 +20,6 @@ public class QueryUtils {
 
     private static User user;
 
-    public static List<User> getAllUsers() {
-
-        List<User> users = new ArrayList<>();
-
-        Call<List<User>> call = RetrofitClient.getInstance()
-                .getAPIClient()
-                .getAllUsers();
-
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                users.addAll(response.body());
-                for (User u: users) {
-                    Log.v(LOG_TAG, u.toString());
-                }
-//                Log.v(LOG_TAG, response.body() + "\n" + response.toString() + "\n" + response.code() + "\n" + response.headers());
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                call.cancel();
-                Log.d(LOG_TAG, "Call failed :" + call.toString());
-            }
-        });
-
-        return users;
-    }
-
     public static User getUserByID(UUID uuid) {
 
         Call<User> call = RetrofitClient.getInstance()
