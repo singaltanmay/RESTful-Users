@@ -1,10 +1,10 @@
 package com.example.restfulusers;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.restfulusers.API.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -23,32 +24,47 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserDetailsFragment.OnEditUserFabClickListener {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     private final String user_list_fragment = "user_list_fragment";
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.fragment_parent, new UserListFragment(), user_list_fragment);
-        transaction.addToBackStack(user_list_fragment);
         transaction.commit();
 
     }
 
     @Override
     public void onUserClicked(@NotNull UUID uuid) {
-        Toast.makeText(this, uuid.toString(), Toast.LENGTH_SHORT).show();
+
+        if (manager == null) {
+            manager = getSupportFragmentManager();
+        }
+
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(R.id.fragment_parent, new UserDetailsFragment(uuid));
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onEditUserFabClicked(@Nullable UUID uuid) {
+        //TODO implement functionality
     }
 
     @Override
     public void onNewUserFabClicked() {
-        startActivity(new Intent(MainActivity.this, UserDetailsActivity.class));
+        //TODO implement functionality
     }
 
     private void deleteAllUsers() {
