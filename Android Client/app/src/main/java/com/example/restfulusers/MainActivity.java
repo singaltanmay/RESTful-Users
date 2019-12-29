@@ -1,36 +1,21 @@
 package com.example.restfulusers;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.restfulusers.API.QueryUtils;
-import com.example.restfulusers.API.RetrofitClient;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.restfulusers.API.RetrofitClient;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.UUID;
 
 import okhttp3.ResponseBody;
@@ -38,77 +23,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener {
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
 
-    ListView mListView;
-    private ListAdapter mAdapter;
-
+    private final String user_list_fragment = "user_list_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mListView = findViewById(R.id.users_list);
-        mAdapter = new ListAdapter(this, R.layout.list_item, new ArrayList<>());
-        mListView.setAdapter(mAdapter);
-        mListView.setOnItemClickListener(
-                (AdapterView<?> parent, View view, int position, long id) -> {
-                    Intent intent = new Intent(MainActivity.this, UserDetailsActivity.class);
-                    intent.putExtra(UserDetailsActivity.KEY_INTENT_UUID, mAdapter.getUUIDAtIndex(position).toString());
-                    startActivity(intent);
-                }
-        );
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.fragment_parent, new UserListFragment(), user_list_fragment);
+        transaction.addToBackStack(user_list_fragment);
+        transaction.commit();
 
-        loadAllUsers();
-
-        FloatingActionButton fab = findViewById(R.id.user_add_fab);
-        fab.setOnClickListener((View view) -> startActivity(new Intent(MainActivity.this, UserDetailsActivity.class)));
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        loadAllUsers();
+    public void onUserClicked(@NotNull UUID uuid) {
+        Toast.makeText(this, uuid.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void loadAllUsers() {
-
-        Call<List<User>> call = RetrofitClient.getInstance()
-                .getAPIClient()
-                .getAllUsers();
-
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                List<User> users = response.body();
-                mAdapter.setData(users);
-                mAdapter.notifyDataSetChanged();
-
-                Log.v(LOG_TAG, "Call successful. Items received: " + users.size());
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-//
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-//                builder.setMessage("Could not connect to server. Try again?")
-//                        .setTitle("Connection Failed")
-//                        .setPositiveButton(android.R.string.ok, (DialogInterface d, int id) -> {
-//                            loadAllUsers();
-//                        })
-//                        .setNegativeButton(android.R.string.no, (DialogInterface d, int id) -> {
-//                            d.dismiss();
-//                        });
-//                builder.create();
-
-                call.cancel();
-                Log.d(LOG_TAG, "Call failed :" + t.getMessage());
-            }
-        });
-
+    @Override
+    public void onNewUserFabClicked() {
+        startActivity(new Intent(MainActivity.this, UserDetailsActivity.class));
     }
 
     private void deleteAllUsers() {
@@ -120,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                loadAllUsers();
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag(user_list_fragment);
+                if (fragment instanceof UserListFragment) {
+                    ((UserListFragment) fragment).loadAllUsers();
+                }
                 Log.v(LOG_TAG, "Deleted all users");
             }
 
@@ -150,7 +93,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Deleted All", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_refresh_users_list) {
-            loadAllUsers();
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(user_list_fragment);
+            if (fragment instanceof UserListFragment) {
+                ((UserListFragment) fragment).loadAllUsers();
+            }
             Toast.makeText(this, "Reloaded", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -158,52 +104,5 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class ListAdapter extends ArrayAdapter<User> {
 
-        private List<User> data;
-        int resource;
-
-        public ListAdapter(@NonNull Context context, int resource, @NonNull List<User> objects) {
-            super(context, resource, objects);
-            this.data = objects;
-            this.resource = resource;
-        }
-
-        public void setData(List<User> data) {
-            this.data = data;
-        }
-
-        public UUID getUUIDAtIndex(int position) {
-            return this.data.get(position).getUUID();
-        }
-
-        @Override
-        public int getCount() {
-            return this.data.size();
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = getLayoutInflater().inflate(resource, parent, false);
-            }
-
-            try {
-                TextView name = convertView.findViewById(R.id.list_item_user_name);
-                TextView phone = convertView.findViewById(R.id.list_item_user_phone);
-                TextView uuid = convertView.findViewById(R.id.list_item_user_uuid);
-
-                User user = data.get(position);
-                name.setText(user.getFirstName() + " " + user.getLastName());
-                phone.setText(user.getPhoneNumber());
-                uuid.setText(user.getUUID().toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return convertView;
-        }
-    }
 }
