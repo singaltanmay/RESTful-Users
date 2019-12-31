@@ -17,3 +17,7 @@ q
 Aapp/src/main/java/com/example/restfulusers/UserDetailsFragment.kt,3\1\318f60cea807844fd3b50cccf0b3470b19ce43cb
 n
 >app/src/main/java/com/example/restfulusers/UserListFragment.kt,a\d\adc3fc9924ceb7b7ebead5d50f6a83e75da24fa4
+p
+@app/src/main/java/com/example/restfulusers/UserModifyFragment.kt,a\e\aece7b254ff2ab8f25764082a6a21d9900dad407
+n
+>app/src/main/java/com/example/restfulusers/RetrofitClient.java,1\c\1cb1f5a92aecb426d309d6d35cfed74c7ae20e0e
