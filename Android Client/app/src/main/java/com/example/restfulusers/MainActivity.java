@@ -147,5 +147,4 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
         return super.onOptionsItemSelected(item);
     }
 
-
 }
