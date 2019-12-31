@@ -12,8 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.restfulusers.API.RetrofitClient;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment_parent, new UserListFragment());
+        transaction.add(R.id.fragment_parent, new UserListFragment(), KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
         transaction.addToBackStack(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
         transaction.commit();
 

@@ -1,6 +1,4 @@
-package com.example.restfulusers.API;
-
-import com.example.restfulusers.User;
+package com.example.restfulusers;
 
 import java.util.List;
 import java.util.UUID;

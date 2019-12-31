@@ -21,14 +21,16 @@
             android:id="@+id/list_item_user_phone"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
 
         <TextView
             android:id="@+id/list_item_user_uuid"
-            style="@style/TextAppearance.AppCompat.Body2"
+            style="@style/TextAppearance.AppCompat.Small"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 
