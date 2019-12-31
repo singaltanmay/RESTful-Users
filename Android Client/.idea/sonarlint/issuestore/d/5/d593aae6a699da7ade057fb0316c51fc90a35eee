@@ -1,5 +1,7 @@
 
-nsquid:CallToDeprecatedMethod-"?Remove this use of "getSupportLoaderManager"; it is deprecated.(œšÚ¢8–ëıÜó-
-Gsquid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ8³áŒİó-
-qsquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(ª×ıÿÿÿÿ8¬Êæ¼ó-
-usquid:S00117)"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(–©±èûÿÿÿÿ8–ğ®½ó-
+qsquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(ô¸Üòıÿÿÿÿ8ı¶ôâô-
+>squid:S1170"!Make this final field static too.(ç¯;8Ú„õ-
+Usquid:S1135>"2Complete the task associated to this TODO comment.(¬Ó€‚üÿÿÿÿ8†éá…õ-
+psquid:S00116"RRename this field "LOG_TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Õ»78Ú„õ-
+{squid:S00116"]Rename this field "user_list_fragment" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç¯;8Ú„õ-
+Usquid:S1135C"2Complete the task associated to this TODO comment.(¬Ó€‚üÿÿÿÿ8¨…×…õ-

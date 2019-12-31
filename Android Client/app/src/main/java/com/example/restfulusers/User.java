@@ -4,6 +4,16 @@ import java.util.UUID;
 
 public class User {
 
+    public static UUID getUUIDIfValid(String uuid) {
+        try {
+            return UUID.fromString(uuid);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     private UUID uuid;
     private String firstName;
     private String lastName;

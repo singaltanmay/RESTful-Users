@@ -24,11 +24,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserDetailsFragment.OnEditUserFabClickListener {
+public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserDetailsFragment.OnEditUserFabClickListener, UserModifyFragment.OnModificationDoneListener {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
+    private final String KEY_TRANSACTION_STACK_FRAGMENT_USERLIST = "ZJV8y2rhdy";
 
-    private final String user_list_fragment = "user_list_fragment";
     private FragmentManager manager;
 
     @Override
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment_parent, new UserListFragment(), user_list_fragment);
+        transaction.add(R.id.fragment_parent, new UserListFragment(), KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
         transaction.commit();
 
     }
@@ -59,12 +59,39 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
 
     @Override
     public void onEditUserFabClicked(@Nullable UUID uuid) {
-        //TODO implement functionality
+        if (manager == null) {
+            manager = getSupportFragmentManager();
+        }
+
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        UserModifyFragment fragment = new UserModifyFragment(uuid);
+        transaction.replace(R.id.fragment_parent, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
     public void onNewUserFabClicked() {
-        //TODO implement functionality
+        if (manager == null) {
+            manager = getSupportFragmentManager();
+        }
+
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.replace(R.id.fragment_parent, new UserModifyFragment(null));
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onModificationDone() {
+
+        if (manager == null) {
+            manager = getSupportFragmentManager();
+        }
+
+        manager.popBackStack(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST, 0);
     }
 
     private void deleteAllUsers() {
@@ -76,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Fragment fragment = getSupportFragmentManager().findFragmentByTag(user_list_fragment);
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
                 if (fragment instanceof UserListFragment) {
                     ((UserListFragment) fragment).loadAllUsers();
                 }
@@ -109,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
             Toast.makeText(this, "Deleted All", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.action_refresh_users_list) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag(user_list_fragment);
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
             if (fragment instanceof UserListFragment) {
                 ((UserListFragment) fragment).loadAllUsers();
             }

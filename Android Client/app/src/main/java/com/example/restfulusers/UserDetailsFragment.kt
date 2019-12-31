@@ -39,12 +39,11 @@ class UserDetailsFragment(var uuid: UUID?) : Fragment() {
 
         if (uuid != null) {
             getUserByID()
-        } else uuid = UUID.randomUUID()
-
-        val user = User(uuid, "John", "Doe", "13491780")
-
-
-        setupUserInfo(user)
+        } else {
+            uuid = UUID.randomUUID()
+            val user = User(uuid, "John", "Doe", "13491780")
+            setupUserInfo(user)
+        }
 
         val floatingActionButton: FloatingActionButton = parentView!!.findViewById(R.id.user_edit_fab)
         floatingActionButton.setOnClickListener { view: View ->

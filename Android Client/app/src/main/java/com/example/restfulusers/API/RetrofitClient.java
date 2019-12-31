@@ -12,7 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class RetrofitClient {
@@ -36,7 +38,7 @@ public class RetrofitClient {
         return mInstance;
     }
 
-    public APIClient getAPIClient(){
+    public APIClient getAPIClient() {
         return retrofit.create(APIClient.class);
     }
 
@@ -50,6 +52,12 @@ public class RetrofitClient {
 
         @POST("/api/user/")
         Call<ResponseBody> insertUser(@Body User user);
+
+        @PUT("/api/user/{id}")
+        Call<ResponseBody> insertUserAtID(@Path("id") UUID uuid, @Body User user);
+
+        @PATCH("/api/user/{id}")
+        Call<ResponseBody> modifyUserAtID(@Path("id") UUID uuid, @Body User user);
 
         @DELETE("/api/user")
         Call<ResponseBody> deleteAllUsers();
