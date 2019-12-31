@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserDetailsFragment.OnEditUserFabClickListener, UserModifyFragment.OnModificationDoneListener {
+public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserModifyFragment.OnModificationDoneListener {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private final String KEY_TRANSACTION_STACK_FRAGMENT_USERLIST = "ZJV8y2rhdy";
@@ -45,19 +44,6 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
     @Override
     public void onUserClicked(@NotNull UUID uuid) {
 
-        if (manager == null) {
-            manager = getSupportFragmentManager();
-        }
-
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.replace(R.id.fragment_parent, new UserDetailsFragment(uuid));
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    @Override
-    public void onEditUserFabClicked(@Nullable UUID uuid) {
         if (manager == null) {
             manager = getSupportFragmentManager();
         }
