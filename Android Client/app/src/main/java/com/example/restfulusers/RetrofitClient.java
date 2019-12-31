@@ -17,7 +17,10 @@ import retrofit2.http.Path;
 
 public class RetrofitClient {
 
-    private static String BASE_URL = "http://10.0.2.2:8080";
+    private static String EMULATOR_HOST_LOOPBACK_IP_ADDRESS = "10.0.2.2";
+    private static String SERVER_IP_ADDRESS = "192.168.0.110";
+    private static String DATABASE_PORT_NUMBER = "8080";
+    private static String BASE_URL = "http://" + SERVER_IP_ADDRESS + ":" + DATABASE_PORT_NUMBER;
 
     private static RetrofitClient mInstance;
     private Retrofit retrofit;

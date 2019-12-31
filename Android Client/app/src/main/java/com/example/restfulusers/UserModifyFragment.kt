@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -20,7 +20,7 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
 
     private val LOG_TAG = this.javaClass.simpleName
 
-    private var listener: OnModificationDoneListener? = null
+    private var listener: fragmentFinishListener? = null
     private var firstName: EditText? = null
     private var lastName: EditText? = null
     private var phoneNumber: EditText? = null
@@ -28,7 +28,7 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnModificationDoneListener) {
+        if (context is fragmentFinishListener) {
             listener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
@@ -49,7 +49,7 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
             getUserByID()
         }
 
-        view.findViewById<FloatingActionButton>(R.id.modify_done_fab).setOnClickListener { v ->
+        view.findViewById<MaterialButton>(R.id.modify_done_button).setOnClickListener { v ->
             kotlin.run {
 
                 val uuidString = uuid?.text.toString()
@@ -69,7 +69,11 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
                 else insertUserAtID(user.uuid, user)
 
             }
-            onModificationDone()
+            finishFragment()
+        }
+
+        view.findViewById<MaterialButton>(R.id.modify_cancel_button).setOnClickListener {
+            finishFragment()
         }
 
         return view
@@ -159,8 +163,8 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
         })
     }
 
-    fun onModificationDone() {
-        listener?.onModificationDone()
+    fun finishFragment() {
+        listener?.finishFragment()
     }
 
     override fun onDetach() {
@@ -168,8 +172,8 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
         listener = null
     }
 
-    interface OnModificationDoneListener {
-        fun onModificationDone()
+    interface fragmentFinishListener {
+        fun finishFragment()
     }
 
 }

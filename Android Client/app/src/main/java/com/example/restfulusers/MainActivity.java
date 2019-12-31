@@ -21,7 +21,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserModifyFragment.OnModificationDoneListener {
+public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserModifyFragment.fragmentFinishListener {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private final String KEY_TRANSACTION_STACK_FRAGMENT_USERLIST = "ZJV8y2rhdy";
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
     }
 
     @Override
-    public void onModificationDone() {
+    public void finishFragment() {
         if (manager == null) manager = getSupportFragmentManager();
 
         manager.popBackStack(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST, 0);

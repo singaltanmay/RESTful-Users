@@ -77,16 +77,22 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/modify_done_fab"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/modify_cancel_button"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@android:string/cancel"
+        app:layout_constraintStart_toStartOf="@+id/uuidTextInputLayout"
+        app:layout_constraintTop_toTopOf="@+id/modify_done_button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/modify_done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:text="Done"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_done_black_24dp" />
-
+        app:layout_constraintEnd_toEndOf="@+id/uuidTextInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

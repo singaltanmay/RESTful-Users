@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -49,7 +49,7 @@ class UserListFragment : Fragment() {
         mRecyclerView?.adapter = mAdapter
         mRecyclerView?.layoutManager = LinearLayoutManager(context)
 
-        val fab: FloatingActionButton = view.findViewById(R.id.user_add_fab)
+        val fab: ExtendedFloatingActionButton = view.findViewById(R.id.user_add_fab)
         fab.setOnClickListener { view: View? -> listener?.onNewUserFabClicked() }
 
         return view
