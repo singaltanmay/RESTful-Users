@@ -11,4 +11,10 @@
         <item name="colorOnError">#000000</item>
     </style>
 
+    <style name="AppTheme.TextInputLayout.UserModifyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

@@ -10,6 +10,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.example.restfulusers.API.RetrofitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputLayout
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,7 +53,15 @@ class UserModifyFragment(private val sourceUUID: UUID?) : Fragment() {
         view.findViewById<FloatingActionButton>(R.id.modify_done_fab).setOnClickListener { v ->
             kotlin.run {
 
-                val user = User(User.getUUIDIfValid(uuid?.text.toString()), firstName?.text.toString(), lastName?.text.toString(), phoneNumber?.text.toString())
+                val uuidString = uuid?.text.toString()
+                val uuidIfValid = User.getUUIDIfValid(uuidString)
+
+                if (uuidIfValid == null && uuidString.isNotBlank()){
+                    (view.findViewById(R.id.uuidTextInputLayout) as TextInputLayout).error = "UUID is not valid!"
+                    return@setOnClickListener
+                }
+
+                val user = User(uuidIfValid, firstName?.text.toString(), lastName?.text.toString(), phoneNumber?.text.toString())
 
                 if (user.isBlank()) return@run
 

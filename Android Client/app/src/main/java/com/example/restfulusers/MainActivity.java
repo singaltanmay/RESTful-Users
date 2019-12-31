@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
 
         manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment_parent, new UserListFragment(), KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
+        transaction.add(R.id.fragment_parent, new UserListFragment());
+        transaction.addToBackStack(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST);
         transaction.commit();
 
     }
@@ -73,9 +74,7 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
 
     @Override
     public void onNewUserFabClicked() {
-        if (manager == null) {
-            manager = getSupportFragmentManager();
-        }
+        if (manager == null) manager = getSupportFragmentManager();
 
         FragmentTransaction transaction = manager.beginTransaction();
 
@@ -86,12 +85,10 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
 
     @Override
     public void onModificationDone() {
-
-        if (manager == null) {
-            manager = getSupportFragmentManager();
-        }
+        if (manager == null) manager = getSupportFragmentManager();
 
         manager.popBackStack(KEY_TRANSACTION_STACK_FRAGMENT_USERLIST, 0);
+        Log.v(LOG_TAG, "Fragment Transaction stack popped");
     }
 
     private void deleteAllUsers() {
@@ -147,4 +144,12 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        /**
+         *  Prevent popping of {@link UserListFragment()}
+         **/
+        if (manager.getBackStackEntryCount() == 1) finish();
+        else super.onBackPressed();
+    }
 }
