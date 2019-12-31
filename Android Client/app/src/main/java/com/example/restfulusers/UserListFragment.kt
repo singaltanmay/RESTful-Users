@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import okhttp3.ResponseBody
@@ -44,10 +45,25 @@ class UserListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
-        mRecyclerView = view.findViewById<RecyclerView>(R.id.users_list)
+        mRecyclerView = view.findViewById(R.id.users_list)
         mAdapter = ListAdapter(context, ArrayList())
         mRecyclerView?.adapter = mAdapter
         mRecyclerView?.layoutManager = LinearLayoutManager(context)
+
+        val mToolbar = view.findViewById<MaterialToolbar>(R.id.toolbar_user_list);
+        mToolbar.setOnMenuItemClickListener {
+
+            if (it.itemId == R.id.action_delete_all_users) {
+                deleteAllUsers()
+                Toast.makeText(context, "Deleted All", Toast.LENGTH_SHORT).show()
+            } else if (it.itemId == R.id.action_refresh_users_list) {
+                Toast.makeText(context, "Refreshed", Toast.LENGTH_SHORT).show()
+            } else return@setOnMenuItemClickListener false
+
+            loadAllUsers()
+
+            true
+        }
 
         val fab: ExtendedFloatingActionButton = view.findViewById(R.id.user_add_fab)
         fab.setOnClickListener { view: View? -> listener?.onNewUserFabClicked() }
@@ -100,6 +116,7 @@ class UserListFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 
+
     fun insertUserAtID(uuid3: UUID, user: User?) {
         val call = RetrofitClient.getInstance()
                 .apiClient
@@ -111,6 +128,23 @@ class UserListFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                call.cancel()
+                Log.d(LOG_TAG, "Call failed :" + t.message)
+            }
+        })
+    }
+
+    private fun deleteAllUsers() {
+        val call = RetrofitClient.getInstance()
+                .apiClient
+                .deleteAllUsers()
+        call.enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                loadAllUsers()
+                Log.v(LOG_TAG, "Deleted all users")
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
                 call.cancel()
                 Log.d(LOG_TAG, "Call failed :" + t.message)
             }
