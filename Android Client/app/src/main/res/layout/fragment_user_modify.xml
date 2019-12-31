@@ -14,6 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:hint="@string/first_name"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,6 +31,7 @@
         style="@style/AppTheme.TextInputLayout.UserModifyTextInputLayout"
         android:layout_marginTop="8dp"
         android:hint="@string/last_name"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -46,6 +48,7 @@
         style="@style/AppTheme.TextInputLayout.UserModifyTextInputLayout"
         android:layout_marginTop="8dp"
         android:hint="@string/phone"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
@@ -62,6 +65,7 @@
         style="@style/AppTheme.TextInputLayout.UserModifyTextInputLayout"
         android:layout_marginTop="8dp"
         android:hint="@string/uuid"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">

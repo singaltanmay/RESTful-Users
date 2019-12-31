@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.restfulusers.API.RetrofitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
@@ -37,12 +38,10 @@ class UserListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
-        val mListView = view.findViewById<ListView>(R.id.users_list)
-        mAdapter = ListAdapter(context!!, R.layout.list_item, ArrayList<User>())
-        mListView.adapter = mAdapter
-        mListView.onItemClickListener = OnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-            listener?.onUserClicked(mAdapter!!.getUUIDAtIndex(position))
-        }
+        val mRecyclerView = view.findViewById<RecyclerView>(R.id.users_list)
+        mAdapter = ListAdapter(context, ArrayList<User>())
+        mRecyclerView.adapter = mAdapter
+        mRecyclerView.layoutManager = LinearLayoutManager(context)
 
         val fab: FloatingActionButton = view.findViewById(R.id.user_add_fab)
         fab.setOnClickListener { view: View? -> listener?.onNewUserFabClicked() }
@@ -85,23 +84,13 @@ class UserListFragment : Fragment() {
         fun onNewUserFabClicked()
     }
 
-    private class ListAdapter(context: Context, var resource: Int, var data: List<User?>) : ArrayAdapter<User?>(context, resource, data) {
+    private class ListAdapter(val context: Context?, var data: List<User?>) : RecyclerView.Adapter<ListAdapter.VH>() {
 
-        fun getUUIDAtIndex(position: Int): UUID {
-            return data[position]!!.uuid
-        }
+        override fun onBindViewHolder(holder: VH, position: Int) {
+            val convertView = holder.itemView
 
-        override fun getCount(): Int {
-            return data.size
-        }
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
-            var convertView = convertView
-
-            if (convertView == null) {
-//                convertView = inflate(context, resource, parent)
-                convertView = (context as MainActivity).layoutInflater.inflate(resource, parent, false)
+            convertView.setOnClickListener {
+                (context as OnFragmentInteractionListener).onUserClicked(getUUIDAtIndex(position))
             }
 
             try {
@@ -110,16 +99,26 @@ class UserListFragment : Fragment() {
                 val uuid = convertView?.findViewById<TextView>(R.id.list_item_user_uuid)
                 val user = data[position]
                 if (user != null) {
-                    name?.text = user.firstName + " " + user.lastName
+                    name?.text = "${user.firstName} ${user.lastName}"
                     phone?.text = user.phoneNumber
                     uuid?.text = user.uuid.toString()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return convertView!!
         }
 
+        private class VH(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+            return VH((context as MainActivity).layoutInflater.inflate(R.layout.list_item, parent, false))
+        }
+
+        fun getUUIDAtIndex(position: Int): UUID {
+            return data[position]!!.uuid
+        }
+
+        override fun getItemCount() = data.size
     }
 
 }
