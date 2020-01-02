@@ -1,5 +1,6 @@
 
-psquid:S00116"RRename this field "LOG_TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Õ»78Ú„õ-
-qsquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(ê¸µ²ùÿÿÿÿ8ı¶ôâô-
-‘squid:S00116"rRename this field "KEY_TRANSACTION_STACK_FRAGMENT_USERLIST" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ÂÚ8–²ƒØõ-
-?squid:S1170"!Make this final field static too.(“ÂÚ8Ú„õ-
+psquid:S00116"RRename this field "LOG_TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¿Õ»78Ú„õ-
+qsquid:MaximumInheritanceDepth"<This class has 6 parents which is greater than 5 authorized.(ê¬§ïûÿÿÿÿ8ı¶ôâô-
+‘squid:S00116"rRename this field "KEY_TRANSACTION_STACK_FRAGMENT_USERLIST" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“ÂÚ8–²ƒØõ-
+?squid:S1170"!Make this final field static too.(“ÂÚ8Ú„õ-
+|squid:S1488@"_Immediately return this expression instead of assigning it to the temporary variable "baseURL".(Ù¹¹*8…Ê¤’ö-

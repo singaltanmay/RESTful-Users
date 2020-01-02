@@ -1,5 +1,6 @@
 package com.example.restfulusers;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserModifyFragment.fragmentFinishListener {
+public class MainActivity extends AppCompatActivity implements UserListFragment.OnFragmentInteractionListener, UserModifyFragment.fragmentFinishListener, RetrofitClient.onBaseUrlFetch {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private final String KEY_TRANSACTION_STACK_FRAGMENT_USERLIST = "ZJV8y2rhdy";
@@ -55,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements UserListFragment.
         transaction.replace(R.id.fragment_parent, new UserModifyFragment(null));
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public String onFetch() {
+        SharedPreferences myApp = getApplicationContext().getSharedPreferences("myApp", MODE_PRIVATE);
+        String baseURL = myApp.getString("baseURL", "10.0.2.2");
+        return baseURL;
     }
 
     @Override

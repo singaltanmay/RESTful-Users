@@ -17,17 +17,17 @@ import retrofit2.http.Path;
 
 public class RetrofitClient {
 
-    private static String EMULATOR_HOST_LOOPBACK_IP_ADDRESS = "10.0.2.2";
-    private static String SERVER_IP_ADDRESS = "192.168.0.110";
-    private static String DATABASE_PORT_NUMBER = "8080";
-    private static String BASE_URL = "http://" + SERVER_IP_ADDRESS + ":" + DATABASE_PORT_NUMBER;
-
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
 
     private RetrofitClient() {
+
+        String DATABASE_PORT_NUMBER = "8080";
+
+        String apiURL = "http://" + (this instanceof onBaseUrlFetch ? ((onBaseUrlFetch) this).onFetch() : "10.0.2.2") + ":" + DATABASE_PORT_NUMBER;
+
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(apiURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -66,6 +66,10 @@ public class RetrofitClient {
         @DELETE("/api/user/{id}")
         Call<ResponseBody> deleteUserByID(@Path("id") UUID uuid);
 
+    }
+
+    public interface onBaseUrlFetch {
+        String onFetch();
     }
 
 }

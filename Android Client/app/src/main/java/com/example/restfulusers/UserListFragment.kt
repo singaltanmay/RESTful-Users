@@ -1,11 +1,15 @@
 package com.example.restfulusers
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -58,6 +62,31 @@ class UserListFragment : Fragment() {
                 Toast.makeText(context, "Deleted All", Toast.LENGTH_SHORT).show()
             } else if (it.itemId == R.id.action_refresh_users_list) {
                 Toast.makeText(context, "Refreshed", Toast.LENGTH_SHORT).show()
+            } else if (it.itemId == R.id.action_change_server_ip) {
+                val alertDialog = AlertDialog.Builder(context)
+                alertDialog.setTitle("Server IP")
+                alertDialog.setMessage("Enter IP address of server")
+
+                val editText = EditText(context)
+                val layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                )
+
+                editText.layoutParams = layoutParams
+
+                alertDialog.setView(editText)
+                alertDialog.setPositiveButton("Done") { dialogInterface: DialogInterface, i: Int ->
+                    val preferences = context?.getSharedPreferences("myApp", Context.MODE_PRIVATE)
+                    preferences?.edit()?.putString("baseURL", editText.text.toString())?.apply()
+                }
+
+                alertDialog.setNegativeButton(android.R.string.cancel) { dialog, which ->
+                    dialog.dismiss()
+                }
+
+                alertDialog.show()
+
             } else return@setOnMenuItemClickListener false
 
             loadAllUsers()
@@ -70,13 +99,11 @@ class UserListFragment : Fragment() {
 
         return view
     }
-
     override fun onStart() {
         loadAllUsers()
         enableSwipe()
         super.onStart()
     }
-
 
     private fun enableSwipe() {
 
@@ -115,7 +142,6 @@ class UserListFragment : Fragment() {
         val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
-
 
     fun insertUserAtID(uuid3: UUID, user: User?) {
         val call = RetrofitClient.getInstance()
@@ -186,7 +212,6 @@ class UserListFragment : Fragment() {
             }
         })
     }
-
 
     override fun onDetach() {
         super.onDetach()
