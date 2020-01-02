@@ -1,11 +1,11 @@
 package com.example.restfulusers.api;
 
 import com.example.restfulusers.model.User;
+import com.example.restfulusers.service.UserJpaService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.restfulusers.service.UserService;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,10 +14,10 @@ import java.util.UUID;
 @RestController
 public class UserController {
 
-    private final UserService service;
+    private final UserJpaService service;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserJpaService service) {
         this.service = service;
     }
 

@@ -12,22 +12,22 @@ public interface UserDao {
     byte RESOURCE_NOT_FOUND = 1;
     byte BAD_REQUEST = 2;
 
-    boolean insertNewUser(UUID uuid, User user);
+    List<User> getAllUsers();
+
+    Optional<User> getUserByID(UUID uuid);
 
     default boolean insertNewUser(User user) {
         return insertNewUser(UUID.randomUUID(), user);
     }
 
-    List<User> getAllUsers();
-
-    Optional<User> getUserByID(UUID uuid);
-
-    boolean deleteAllUsers();
-
-    byte deleteUserByID(UUID uuid);
+    boolean insertNewUser(UUID uuid, User user);
 
     byte replaceOrInsertUserByID(UUID uuid, User user);
 
     byte updateUserByID(UUID uuid, User user);
+
+    boolean deleteAllUsers();
+
+    byte deleteUserByID(UUID uuid);
 
 }
