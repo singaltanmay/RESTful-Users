@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.UUID;
 
-public class JpaDbAccessService extends CrudRepository<User, UUID> implements UserDao {
-
-
+public class JpaDbAccessService extends CrudRepository<User, UUID> {
+    
 }
