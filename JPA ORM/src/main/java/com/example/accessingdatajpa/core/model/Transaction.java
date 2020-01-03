@@ -43,6 +43,54 @@ public class Transaction {
                 return "err";
         }
     }
+
+    public String getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(String transactionID) {
+        this.transactionID = transactionID;
+    }
+
+    public double getTransactionAmount() {
+        return transactionAmount;
+    }
+
+    public void setTransactionAmount(double transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
+
+    public TransactionTypes getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionTypes transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public String getSenderAccountId() {
+        return senderAccountId;
+    }
+
+    public void setSenderAccountId(String senderAccountId) {
+        this.senderAccountId = senderAccountId;
+    }
+
+    public String getReceiverAccountId() {
+        return receiverAccountId;
+    }
+
+    public void setReceiverAccountId(String receiverAccountId) {
+        this.receiverAccountId = receiverAccountId;
+    }
+
+    public Date getTransactionTime() {
+        return transactionTime;
+    }
+
+    public void setTransactionTime(Date transactionTime) {
+        this.transactionTime = transactionTime;
+    }
 }
 
 

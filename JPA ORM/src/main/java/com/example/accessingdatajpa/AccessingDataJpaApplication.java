@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class AccessingDataJpaApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
+//    private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
     public static void main(String[] args) {
         SpringApplication.run(AccessingDataJpaApplication.class);
