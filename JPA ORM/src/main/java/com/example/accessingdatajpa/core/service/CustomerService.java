@@ -40,9 +40,9 @@ public class CustomerService {
         repository.save(customer);
     }
 
-    public void insertCustomerByAccountID(long accountID, Customer customer) {
+    public void insertCustomerByAccountID(long accountID, Customer customer) throws Exception {
         if (repository.existsById(accountID)) {
-            throw new NullPointerException("A customer already exists at specified ID.");
+            throw new Exception("A customer already exists at specified ID.");
         } else {
             customer.setAccountID(accountID);
             insertCustomer(customer);
@@ -53,8 +53,8 @@ public class CustomerService {
         repository.deleteAll();
     }
 
-    public void deleteCustomerByAccountID(long accountID) {
-        if (!repository.existsById(accountID)) throw new NullPointerException();
+    public void deleteCustomerByAccountID(long accountID) throws Exception {
+        if (!repository.existsById(accountID)) throw new Exception();
         else {
             repository.deleteById(accountID);
         }
