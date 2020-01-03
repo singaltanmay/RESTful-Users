@@ -22,7 +22,7 @@ public class CustomerService {
 
     public List<Customer> getAllCustomers() {
         List<Customer> list = new LinkedList<>();
-        Iterable<Customer> all = repository.findAll();
+        List<Customer> all = repository.findAll();
 
         for (Customer c : all) {
             list.add(c);
