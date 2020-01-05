@@ -23,11 +23,12 @@ public class Transaction {
     @Column(name = "type", nullable = false)
     private TransactionTypes transactionType;
 
-    @Column(name = "sender_acc_id", length = 10, nullable = false)
-    private String senderAccountId;
+    @OneToOne
+    private Customer sender;
 
-    @Column(name = "receiver_acc_id", length = 10, nullable = false)
-    private String receiverAccountId;
+    @OneToOne
+    @JoinColumn(name = "sendTo")
+    private Customer receiver;
 
     @Column(name = "time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -68,20 +69,20 @@ public class Transaction {
         this.transactionType = transactionType;
     }
 
-    public String getSenderAccountId() {
-        return senderAccountId;
+    public Customer getSender() {
+        return sender;
     }
 
-    public void setSenderAccountId(String senderAccountId) {
-        this.senderAccountId = senderAccountId;
+    public void setSender(Customer sender) {
+        this.sender = sender;
     }
 
-    public String getReceiverAccountId() {
-        return receiverAccountId;
+    public Customer getReceiver() {
+        return receiver;
     }
 
-    public void setReceiverAccountId(String receiverAccountId) {
-        this.receiverAccountId = receiverAccountId;
+    public void setReceiver(Customer receiver) {
+        this.receiver = receiver;
     }
 
     public Date getTransactionTime() {

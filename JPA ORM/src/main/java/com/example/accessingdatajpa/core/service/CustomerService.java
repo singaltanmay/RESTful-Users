@@ -5,7 +5,7 @@ import com.example.accessingdatajpa.core.repo.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +21,7 @@ public class CustomerService {
 
 
     public List<Customer> getAllCustomers() {
-        List<Customer> list = new LinkedList<>();
-        List<Customer> all = repository.findAll();
-
-        for (Customer c : all) {
-            list.add(c);
-        }
-
-        return list;
+        return repository.findAll();
     }
 
     public Customer getCustomerByAccountID(long accountID) {
@@ -36,6 +29,7 @@ public class CustomerService {
         return byId.get();
     }
 
+    @Transactional
     public void insertCustomer(Customer customer) {
         repository.save(customer);
     }

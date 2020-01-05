@@ -3,11 +3,12 @@ package com.example.accessingdatajpa.core.service;
 import com.example.accessingdatajpa.core.model.Transaction;
 import com.example.accessingdatajpa.core.repo.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TransactionService {
 
     private final TransactionRepository repository;
@@ -19,14 +20,7 @@ public class TransactionService {
 
 
     public List<Transaction> getAllTransactions() {
-        List<Transaction> list = new LinkedList<>();
-        Iterable<Transaction> all = repository.findAll();
-
-        for (Transaction c : all) {
-            list.add(c);
-        }
-
-        return list;
+        return repository.findAll();
     }
 
     public Transaction getTransactionByTransactionID(String transactionID) {
