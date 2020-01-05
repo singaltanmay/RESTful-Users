@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0dcad199-5e41-456e-8f97-5ff06a40ff14" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/repo/AddressRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/service/AddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/repo/CustomerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/repo/CustomerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/service/CustomerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/service/TransactionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/frontend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/frontend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/JPA ORM.kotlin_module" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +59,8 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/frontend" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
@@ -127,8 +122,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1578035595309</updated>
+      <workItem from="1578240588612" duration="294000" />
+      <workItem from="1578241065344" duration="1525000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
     <state x="670" y="177" key="#AccessingDataJpaApplication" timestamp="1578043129414">
@@ -155,10 +155,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="276" y="382" width="418" height="291" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1578039105164" />
-    <state x="592" y="113" key="CommitChangelistDialog2" timestamp="1578046213166">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="592" y="113" width="797" height="815" key="CommitChangelistDialog2" timestamp="1578242601783">
+      <screen x="0" y="0" width="1920" height="1044" />
     </state>
     <state x="592" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578046213166" />
+    <state x="592" y="113" width="797" height="815" key="CommitChangelistDialog2/0.0.1920.1044@0.0.1920.1044" timestamp="1578242601783" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1578036378505">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
