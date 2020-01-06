@@ -23,10 +23,10 @@ public class Transaction {
     @Column(name = "type", nullable = false)
     private TransactionTypes transactionType;
 
-    @OneToOne
+    @OneToOne/*(cascade = CascadeType.ALL)*/
     private Customer sender;
 
-    @OneToOne
+    @OneToOne/*(cascade = CascadeType.ALL)*/
     @JoinColumn(name = "sendTo")
     private Customer receiver;
 

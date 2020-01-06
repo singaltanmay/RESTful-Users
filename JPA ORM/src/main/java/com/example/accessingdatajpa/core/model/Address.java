@@ -13,10 +13,10 @@ public class Address {
     @Transient
     private String address;
 
-    @OneToOne(mappedBy = "home")
+    @OneToOne(mappedBy = "home"/*, cascade = CascadeType.ALL*/)
     private Customer resident;
 
-    @OneToOne(mappedBy = "office")
+    @OneToOne(mappedBy = "office"/*, cascade = CascadeType.ALL*/)
     private Customer worker;
 
     private String house;

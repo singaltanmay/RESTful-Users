@@ -48,14 +48,14 @@ public class UserController {
         Address address = new Address("house", "str", "city", "stte");
         Customer customer = new Customer();
         customer.setHome(address);
-        address.setResident(customer);
+//        address.setResident(customer);
 
         Address address1 = new Address("offide", "eg", "vrsg", "geon");
         customer.setOffice(address1);
-        address1.setWorker(customer);
+//        address1.setWorker(customer);
 
-        addressService.insertAddress(address);
-        addressService.insertAddress(address1);
+//        addressService.insertAddress(address);
+//        addressService.insertAddress(address1);
         customerService.insertCustomer(customer);
 
     }

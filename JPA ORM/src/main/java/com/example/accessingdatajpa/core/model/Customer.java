@@ -12,11 +12,11 @@ public class Customer {
     @Column(unique = true, nullable = false)
     private long accountID;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "residence")
     private Address home;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     private Address office;
 
@@ -32,6 +32,7 @@ public class Customer {
     }
 
     public void setHome(Address home) {
+        home.setResident(this);
         this.home = home;
     }
 
@@ -40,6 +41,7 @@ public class Customer {
     }
 
     public void setOffice(Address office) {
+        office.setWorker(this);
         this.office = office;
     }
 
@@ -66,7 +68,6 @@ public class Customer {
     public void setAccountID(long accountID) {
         this.accountID = accountID;
     }
-
 
 
 }
