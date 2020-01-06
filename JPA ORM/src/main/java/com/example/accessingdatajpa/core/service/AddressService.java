@@ -22,7 +22,7 @@ public class AddressService {
         return repository.findAll();
     }
 
-    @Transactional
+    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     public void insertAddress(Address address) {
         repository.save(address);
     }
