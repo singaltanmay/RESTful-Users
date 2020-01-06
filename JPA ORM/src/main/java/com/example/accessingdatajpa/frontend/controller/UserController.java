@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("api/bank")
@@ -45,18 +46,21 @@ public class UserController {
     @PostMapping(path = "/test")
     public void runTest() {
 
-        Address address = new Address("house", "str", "city", "stte");
         Customer customer = new Customer();
-        customer.setHome(address);
-//        address.setResident(customer);
 
+        Address address = new Address("house", "str", "city", "stte");
         Address address1 = new Address("offide", "eg", "vrsg", "geon");
-        customer.setOffice(address1);
-//        address1.setWorker(customer);
 
-//        addressService.insertAddress(address);
-//        addressService.insertAddress(address1);
+        ArrayList<Address> home = new ArrayList<>();
+        home.add(address);
+        home.add(address1);
+        customer.setHome(home);
+
         customerService.insertCustomer(customer);
+
+        Customer customer1 = new Customer();
+        customer1.setHome(List.of(address));
+        customerService.insertCustomer(customer1);
 
     }
 

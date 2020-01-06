@@ -1,6 +1,8 @@
 package com.example.accessingdatajpa.core.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "addresses")
@@ -13,11 +15,8 @@ public class Address {
     @Transient
     private String address;
 
-    @OneToOne(mappedBy = "home"/*, cascade = CascadeType.ALL*/)
-    private Customer resident;
-
-    @OneToOne(mappedBy = "office"/*, cascade = CascadeType.ALL*/)
-    private Customer worker;
+    @ManyToMany(mappedBy = "home")
+    private List<Customer> residents = new ArrayList<>();
 
     private String house;
     private String street;
@@ -48,20 +47,12 @@ public class Address {
         this.id = id;
     }
 
-    public Customer getResident() {
-        return resident;
+    public List<Customer> getResidents() {
+        return residents;
     }
 
-    public void setResident(Customer resident) {
-        this.resident = resident;
-    }
-
-    public Customer getWorker() {
-        return worker;
-    }
-
-    public void setWorker(Customer worker) {
-        this.worker = worker;
+    public void addResident(Customer resident) {
+        this.residents.add(resident);
     }
 
     public String getHouse() {

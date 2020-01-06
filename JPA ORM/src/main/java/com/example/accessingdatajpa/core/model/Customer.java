@@ -2,6 +2,7 @@ package com.example.accessingdatajpa.core.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -12,13 +13,8 @@ public class Customer {
     @Column(unique = true, nullable = false)
     private long accountID;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "residence")
-    private Address home;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @PrimaryKeyJoinColumn
-    private Address office;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Address> home;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "dob")
@@ -27,22 +23,15 @@ public class Customer {
     @Transient
     private byte age;
 
-    public Address getHome() {
+    public List<Address> getHome() {
         return home;
     }
 
-    public void setHome(Address home) {
-        home.setResident(this);
+    public void setHome(List<Address> home) {
+        for (Address address : home) {
+            address.addResident(this);
+        }
         this.home = home;
-    }
-
-    public Address getOffice() {
-        return office;
-    }
-
-    public void setOffice(Address office) {
-        office.setWorker(this);
-        this.office = office;
     }
 
     public Date getDateOfBirth() {

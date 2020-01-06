@@ -5,8 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Address.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/core/model/Transaction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/frontend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/accessingdatajpa/frontend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/accessingdatajpa/core/model/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/accessingdatajpa/core/model/Address.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/accessingdatajpa/core/model/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/accessingdatajpa/core/model/Customer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/example/accessingdatajpa/frontend/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/accessingdatajpa/frontend/controller/UserController.class" afterDir="false" />
     </list>
@@ -67,7 +67,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
@@ -150,41 +150,41 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="276" y="382" width="418" height="291" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1578039105164" />
-    <state x="592" y="113" key="CommitChangelistDialog2" timestamp="1578289805714">
+    <state x="592" y="113" key="CommitChangelistDialog2" timestamp="1578294919905">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="592" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578289805714" />
+    <state x="592" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1578294919905" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1578036378505">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1578036378505" />
-    <state width="1877" height="435" key="GridCell.Tab.0.bottom" timestamp="1578294909345">
+    <state width="916" height="438" key="GridCell.Tab.0.bottom" timestamp="1578297824853">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="435" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578294909345" />
-    <state width="1877" height="435" key="GridCell.Tab.0.center" timestamp="1578294909345">
+    <state width="916" height="438" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1578297824853" />
+    <state width="916" height="438" key="GridCell.Tab.0.center" timestamp="1578297824853">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="435" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578294909345" />
-    <state width="1877" height="435" key="GridCell.Tab.0.left" timestamp="1578294909345">
+    <state width="916" height="438" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1578297824853" />
+    <state width="916" height="438" key="GridCell.Tab.0.left" timestamp="1578297824852">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="435" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578294909345" />
-    <state width="1877" height="435" key="GridCell.Tab.0.right" timestamp="1578294909345">
+    <state width="916" height="438" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1578297824852" />
+    <state width="916" height="438" key="GridCell.Tab.0.right" timestamp="1578297824853">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="435" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578294909345" />
-    <state x="705" y="125" width="998" height="708" key="SettingsEditor" timestamp="1578291159800">
+    <state width="916" height="438" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1578297824853" />
+    <state x="180" y="195" width="998" height="708" key="SettingsEditor" timestamp="1578295238419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="705" y="125" width="998" height="708" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578291159800" />
+    <state x="180" y="195" width="998" height="708" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1578295238419" />
     <state x="776" y="298" key="chooseDestDirectoryDialog" timestamp="1578040259034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="776" y="298" key="chooseDestDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578040259034" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1578291254414">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1578295191572">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1578291254414" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1578295191572" />
   </component>
 </project>
